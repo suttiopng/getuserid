@@ -51,7 +51,7 @@ async function sendQuickReply(replyToken, message) {
 }
 
 async function sendToESP32(userId, command) {
-  const esp32Url = `http://192.168.1.44/${command}?userId=${encodeURIComponent(
+  const esp32Url = `http://dataservice2.ddns/${command}?userId=${encodeURIComponent(
     userId
   )}`;
   const response = await fetch(esp32Url);
