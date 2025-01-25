@@ -33,7 +33,8 @@ export default async function handler(
 }
 
 async function sendQuickReply(replyToken, message) {
-  const accessToken = "YOUR_LINE_ACCESS_TOKEN";
+  const accessToken =
+    "IpzWTT0hfdbEvsyUSGbYiFxqyrlVC846CJrpCISWfddPv1MdskfNPkxwXx5/l+IUx3Fr7n8AYV/ykMSsLzDiE2hK4OKoTM83u0HtZ93azDPfSC5QmCKrnEE3hVRc3aGeP5fvo7YF6h0oveT7H0F6RwdB04t89/1O/w1cDnyilFU=";
   const payload = {
     replyToken,
     messages: [{ type: "text", text: message }],
