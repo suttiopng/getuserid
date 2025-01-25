@@ -5,6 +5,10 @@ export default async function handler(
   req = VercelRequest,
   res = VercelResponse
 ) {
+  if (req.method !== "POST") {
+    return res.status(405).send("Method Not Allowed");
+  }
+
   const { events } = req.body;
 
   if (!events || events.length === 0) {
@@ -17,15 +21,15 @@ export default async function handler(
 
     if (messageText === ".connect") {
       await sendToESP32(userId, "connect");
-      sendQuickReply(event.replyToken, "User connected");
+      await sendQuickReply(event.replyToken, "User connected");
     } else if (messageText === ".getid") {
       await sendToESP32(userId, "getid");
-      sendQuickReply(event.replyToken, `Your LINE User ID: ${userId}`);
+      await sendQuickReply(event.replyToken, `Your LINE User ID: ${userId}`);
     } else if (messageText === ".remove") {
       await sendToESP32(userId, "remove");
-      sendQuickReply(event.replyToken, "User removed");
+      await sendQuickReply(event.replyToken, "User removed");
     } else {
-      sendQuickReply(event.replyToken, "Invalid command");
+      await sendQuickReply(event.replyToken, "Invalid command");
     }
   }
 
@@ -51,7 +55,7 @@ async function sendQuickReply(replyToken, message) {
 }
 
 async function sendToESP32(userId, command) {
-  const esp32Url = `http://dataservice2.ddns/${command}?userId=${encodeURIComponent(
+  const esp32Url = `http://dataservice2.ddns.net/${command}?userId=${encodeURIComponent(
     userId
   )}`;
   const response = await fetch(esp32Url);
